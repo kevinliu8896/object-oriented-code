@@ -1,0 +1,171 @@
+Script started on 2020-11-04 17:43:51-05:00 [TERM="xterm" TTY="/dev/pts/2" COLUMNS="99" LINES="35"]
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Person.java
+public class Person {
+    private int age;
+    private String name, gender;
+
+    public Person(String name, String gender, int age) {
+        this.name = name;
+        this.gender = gender;
+        this.age = age;
+    }
+// create getters and setters
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+}
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Person.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Person
+Error: Main method not found in class Person, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Employee.java
+public class Employee extends Person{
+    private double salary;
+    private String date;
+
+    public Employee(String name, String gender, int age, double salary, String date) {
+        super(name, gender, age);
+        this.salary = salary;
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "salary=" + salary +
+                ", date='" + date + '\'' +
+                '}';
+    }
+// getters and setters for salary and date
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Employee.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Employee
+Error: Main method not found in class Employee, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Student.java
+public class Student extends Person{
+    private String programName, programLevel;
+    private int year;
+
+    public Student(String name, String gender, int age, String programName, String programLevel, int year) {
+        super(name,gender,age);
+        this.programName = programName;
+        this.programLevel = programLevel;
+        this.year = year;
+    }
+
+    public String getProgramName() {
+        return programName;
+    }
+
+    public void setProgramName(String programName) {
+        this.programName = programName;
+    }
+
+    public String getProgramLevel() {
+        return programLevel;
+    }
+
+    public void setProgramLevel(String programLevel) {
+        this.programLevel = programLevel;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Student.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Student
+Error: Main method not found in class Student, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Manager.java
+public class Manager extends Employee{ // extends to employee
+    private double bonus;
+
+    public Manager(String name, String gender, int age, double salary, String date, double bonus) {
+        super(name, gender, age, salary, date);
+        this.bonus = bonus;
+    }
+// getter and setter for bonus
+    public double getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(double bonus) {
+        this.bonus = bonus;
+    }
+
+    @Override
+    public String toString() {
+        return  getName() +
+                ", Manager, " +
+                "Salary = " + getSalary() +
+                " , Weekly bonus=" + getBonus();
+    }
+
+}
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Manager.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Manager
+Error: Main method not found in class Manager, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat ManagerTester.java
+public class ManagerTester {
+    public static void main(String[] args) {
+        //create a manager
+        Manager manager1 = new Manager("John Smith", "Male", 19, 125000, "october 31 2020", 200);
+        System.out.println(manager1);
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac ManagerTester.java
+
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ 
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java ManagerTester
+John Smith, Manager, Salary = 125000.0 , Weekly bonus=200.0
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ exit
+exit
+
+Script done on 2020-11-04 17:45:57-05:00 [COMMAND_EXIT_CODE="0"]

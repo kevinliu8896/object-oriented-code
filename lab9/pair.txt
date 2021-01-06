@@ -1,0 +1,118 @@
+Script started on 2020-11-25 17:46:12-05:00 [TERM="xterm" TTY="/dev/pts/2" COLUMNS="100" LINES="35"]
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ cat Pair.java
+import java.util.Objects;
+
+public class Pair <T , S> {
+    private T first;
+    private S second;
+
+    // constructors
+
+    public Pair() {
+
+    }
+
+    public Pair(T first, S second) {
+        setFirst(first);
+        setSecond(second);
+    }
+
+    public T getFirst() {
+        return first;
+    }
+
+    public void setFirst(T first) {
+        this.first = first;
+    }
+
+    public S getSecond() {
+        return second;
+    }
+
+    public void setSecond(S second) {
+        this.second = second;
+    }
+
+    // override toString and equals method
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj){
+            return true;
+        }
+        if(obj == null || getClass()!=obj.getClass()){
+            return false;
+        }
+        Pair<?,?> pair = (Pair<?,?>) obj;
+        return Objects.equals(first, pair.first) && Objects.equals(second, pair.second);
+    }
+
+    @Override
+    public String toString() {
+        return "Word: " + first + ", Synonyms: " + second;
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ javac Pair.java
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ java Pair
+Error: Main method not found in class Pair, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ cat PairTester.java
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+
+public class PairTester {
+    public static void main(String[] args) {
+        Pair<Integer, Integer> p1 = new Pair<>(1, 2);
+        String word = "hello";
+        Pair<String, Integer> p2 = new Pair<>(word, word.length());
+        System.out.println("[" + p1.getFirst() + ", " + p1.getSecond() + "]");
+        System.out.println("[" + p2.getFirst() + ", " + p2.getSecond() + "]");
+        System.out.println(p1.equals(p2));
+
+        ArrayList<Pair<String, ArrayList<String>>> arrayList = new ArrayList<>();
+        ArrayList<String> words = new ArrayList<>();
+        words.add("Annoyed");
+        words.add("Irritated");
+        words.add("Irate");
+
+        String w = "Angry";
+        arrayList.add(new Pair<>(w, words));
+
+        ArrayList<String> words2 = new ArrayList<>();
+        words2.add("Sad");
+        words2.add("Gloomy");
+
+        String w2 = "Depressed";
+        arrayList.add(new Pair<>(w2, words2));
+
+        System.out.println(arrayList);
+        System.out.println("\n----------------------------------------------------------\n\nSorting alphabetically...");
+        Collections.sort(words);
+        Collections.sort(words2);
+        arrayList.sort(new Comparator<Pair<String, ArrayList<String>>>() {
+            @Override
+            public int compare(Pair<String, ArrayList<String>> o1, Pair<String, ArrayList<String>> o2) {
+                return o1.getFirst().compareTo(o2.getFirst());
+            }
+        });
+        System.out.println(arrayList);
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ javac PairTester.java
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ java PairTester
+[1, 2]
+[hello, 5]
+false
+[Word: Angry, Synonyms: [Annoyed, Irritated, Irate], Word: Depressed, Synonyms: [Sad, Gloomy]]
+
+----------------------------------------------------------
+
+Sorting alphabetically...
+[Word: Angry, Synonyms: [Annoyed, Irate, Irritated], Word: Depressed, Synonyms: [Gloomy, Sad]]
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ exit
+exit
+
+Script done on 2020-11-25 17:46:46-05:00 [COMMAND_EXIT_CODE="0"]

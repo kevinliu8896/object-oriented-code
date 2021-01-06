@@ -1,0 +1,276 @@
+Script started on 2020-11-04 17:47:17-05:00 [TERM="xterm" TTY="/dev/pts/2" COLUMNS="99" LINES="35"]
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Shape.java
+public abstract class Shape implements Comparable<Shape>{
+
+    private String name;
+
+    public Shape(){
+        this.name = "General Shape";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public abstract double area();
+
+    @Override
+    public int compareTo(Shape o) {
+        if (this.area() < o.area())
+            return -1;
+        if (this.area() > o.area())
+            return 1;
+        return 0;
+
+    }
+
+}]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Shape.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Shape
+Error: Main method not found in class Shape, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Circle.java
+public class Circle extends Shape {
+
+    private double radius;
+
+    public Circle(double radius){
+        this.setName("Circle");
+        this.radius = radius;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    @Override
+    public double area() {
+        return Math.PI * this.radius * this.radius;
+    }
+
+}]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Circle.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Circle
+Error: Main method not found in class Circle, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Square.java
+public class Square extends Shape {
+
+    private double side;
+
+    public Square(double side){
+        this.setName("Square");
+        this.side = side;
+    }
+
+    public double getSide() {
+        return side;
+    }
+
+    @Override
+    public double area() {
+        return this.side * this.side;
+    }
+
+}]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Square.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Square
+Error: Main method not found in class Square, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Triangle.java
+public class Triangle extends Shape {
+
+    private double base;
+    private double height;
+
+    public Triangle(double base, double height){
+        this.setName("Triangle");
+        this.base = base;
+        this.height = height;
+    }
+
+    public double getBase() {
+        return base;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    @Override
+    public double area() {
+        return (this.base * this.height) / 2;
+    }
+
+}]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Triangle.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Triangle
+Error: Main method not found in class Triangle, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat Oval.java
+public class Oval extends Shape{
+    private double radiusA, radiusB;
+
+    public Oval(double radiusA, double radiusB) {
+        this.setName("Oval");
+        this.radiusA = radiusA;
+        this.radiusB = radiusB;
+    }
+
+    public double getRadiusA() {
+        return radiusA;
+    }
+
+    public void setRadiusA(int radiusA) {
+        this.radiusA = radiusA;
+    }
+
+    public double getRadiusB() {
+        return radiusB;
+    }
+
+    public void setRadiusB(int radiusB) {
+        this.radiusB = radiusB;
+    }
+
+    @Override
+    public double area() {
+        return (Math.PI*(radiusA*radiusB))/4;
+    } // calculate area  of oval
+    @Override
+    public String toString() {
+        return "Oval{" +
+                "radiusA=" + radiusA +
+                ", radiusB=" + radiusB +
+                '}';
+    }
+
+}
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac Oval.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java Oval
+Error: Main method not found in class Oval, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ cat ShapeTester.java
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Random;
+
+public class ShapeTester {
+    public static void main(String[] args) {
+        ArrayList<Shape> shapes = new ArrayList<Shape>();
+        char choiceOfShape;
+        Scanner in = new Scanner(System.in);
+        Random rand = new Random();
+        boolean flag = true;
+
+        while (flag) { // while true run through loop for input
+            System.out.println("Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program");
+            choiceOfShape = in.next().toUpperCase().charAt(0);
+            switch (choiceOfShape) { // create cases for traignle, circle, square, oval, or exit + default
+                case 'T':
+                    int base, height;
+                    base = rand.nextInt(51) + 1;
+                    height = rand.nextInt(51) + 1;
+                    Triangle triangle = new Triangle(base, height);
+                    shapes.add(triangle); // adds random triangle's base and height to array list
+                    break;
+
+
+                case 'C':
+                    int radius;
+                    radius = rand.nextInt(51) + 1;
+                    Circle circle = new Circle(radius);
+                    shapes.add(circle); // adds circle to array list with random radius
+                    break;
+
+
+                case 'Q':
+                    int side;
+                    side = rand.nextInt(51) + 1;
+                    Square square = new Square(side);
+                    shapes.add(square); // adds square to array list with random side
+                    break;
+
+                case 'E':
+                    System.out.println("You have terminated the program.");
+                    flag = false;
+                    break;
+
+                case 'O':
+                    double radiusHeight, radiusVert;
+                    radiusHeight = (rand.nextDouble() * 51 + 1);
+                    radiusVert = (rand.nextDouble() * 51 + 1);
+                    Oval oval = new Oval(radiusHeight, radiusVert);
+                    shapes.add(oval);
+                    break;
+
+                default:
+                    System.out.println("Invalid char input, please try again.");
+                    continue;
+            }
+
+            for (Shape shape : shapes) { // for loop to print out info 
+                if (shape instanceof Triangle) {
+                    Triangle triangle = (Triangle) (shape);
+                    System.out.println(triangle.getName() + " Base: " + triangle.getBase() + " Height: " + triangle.getHeight()+ " Area: " + triangle.area());
+                } else if (shape instanceof Circle) {
+                    Circle circle = (Circle)(shape);
+                    System.out.println(circle.getName() + " Radius: " + circle.getRadius()+ " Area: " + circle.area());
+                } else if(shape instanceof Square) {
+                    Square square = (Square)(shape);
+                    System.out.println(square.getName() + " Side: " + square.getSide() + " Area: " + square.area());
+                }
+                else if(shape instanceof Oval) {
+                    Oval oval = (Oval)(shape);
+                    System.out.println(oval.getName() + " Horizontal Radius: " + oval.getRadiusA() + " Vertical Radius: " + oval.getRadiusB() + " Area: " + oval.area());
+                }
+            }
+        }
+    }
+}
+
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ javac ShapeTester.java
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ java ShapeTester
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+C
+Circle Radius: 22.0 Area: 1520.5308443374597
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+T
+Circle Radius: 22.0 Area: 1520.5308443374597
+Triangle Base: 23.0 Height: 13.0 Area: 149.5
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+Q
+Circle Radius: 22.0 Area: 1520.5308443374597
+Triangle Base: 23.0 Height: 13.0 Area: 149.5
+Square Side: 30.0 Area: 900.0
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+O
+Circle Radius: 22.0 Area: 1520.5308443374597
+Triangle Base: 23.0 Height: 13.0 Area: 149.5
+Square Side: 30.0 Area: 900.0
+Oval Horizontal Radius: 15.206182687214874 Vertical Radius: 32.786301567056185 Area: 391.5637817944748
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+z
+Invalid char input, please try again.
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+x
+Invalid char input, please try again.
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+v
+Invalid char input, please try again.
+Enter a char: C for circle | T for triangle | Q for square | O for oval | E to terminate the program
+E
+You have terminated the program.
+Circle Radius: 22.0 Area: 1520.5308443374597
+Triangle Base: 23.0 Height: 13.0 Area: 149.5
+Square Side: 30.0 Area: 900.0
+Oval Horizontal Radius: 15.206182687214874 Vertical Radius: 32.786301567056185 Area: 391.5637817944748
+]0;liu61@alpha: ~/fall2020/java/lab6[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab6[00m$ exit
+exit
+
+Script done on 2020-11-04 17:49:56-05:00 [COMMAND_EXIT_CODE="0"]

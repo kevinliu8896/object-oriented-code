@@ -1,0 +1,388 @@
+Script started on 2020-11-25 17:42:44-05:00 [TERM="xterm" TTY="/dev/pts/2" COLUMNS="100" LINES="35"]
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ cat Invoice.java
+import java.util.ArrayList;
+
+/**
+ * Invoice class and initializing variable
+ */
+public class Invoice {
+    private Address address;
+    private ArrayList<Product> items = new ArrayList<>();
+    private ArrayList<LineItem> line = new ArrayList<>();
+
+    /**
+     * @param address
+     * @param lineItems
+     * constructor
+     */
+    public Invoice(Address address, ArrayList<LineItem> lineItems) {
+        this.address = address;
+    }
+
+    /**
+     * @return total price of the invoice
+     */
+    public double calcInvoice() {
+        double totalPrice = 0;
+        for(int i = 0; i < line.size(); i++) {
+            totalPrice += line.get(i).getTotalPrice();
+        }
+        return totalPrice;
+    }
+
+    /**
+     * @return value of s which is to format the entire invoice stored in String s
+     */
+    public String formatInvoice() {
+        String s;
+        s = "INVOICE\n----------------------------------------------------------\n";
+        s += address.formatAddress();
+        s += "\n";
+        for(LineItem lineItem : line) {
+            s += lineItem.formatLineItem();
+            s += "\n";
+        }
+        s += "\n----------------------------------------------------------\nTotal Cost of Everything: " + Double.toString(calcInvoice());
+        return s;
+    }
+
+    /**
+     * @param q, p
+     * add lineItem if not out of stock
+     */
+    public void addLineItem(int q, Product p) {
+        LineItem lineItem = new LineItem(q,p);
+            if(!lineItem.outOfStock()) {
+                line.add(lineItem);
+            }
+
+    }
+
+    /**
+     * @return address
+     */
+    public Address getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address
+     * setter for address
+     */
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    /**
+     * @return items
+     */
+    public ArrayList<Product> getItems() {
+        return items;
+    }
+
+    /**
+     * @param items
+     * setter for items
+     */
+    public void setItems(ArrayList<Product> items) {
+        this.items = items;
+    }
+
+
+}
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ javac in[K[KInvoice.java
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ java Invoice
+Error: Main method not found in class Invoice, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ cat Address.java
+/**
+ * Address class declare instance variables
+ */
+public class Address {
+    private String country, address, city, state, postalCode;
+
+    /**
+     * constructor
+     * @param country
+     * @param address
+     * @param city
+     * @param state
+     * @param postalCode
+     */
+    public Address(String country, String address, String city, String state, String postalCode) {
+        this.country = country;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+    }
+
+    /**
+     * @return country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country
+     * setter for country
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /**
+     * @return address
+     */
+    public String getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address
+     * setter for address
+     */
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    /**
+     * @return city
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * @param city
+     * setter for city
+     */
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    /**
+     * @return state
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * @param state
+     * setter for state
+     */
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    /**
+     * @return postalCode
+     */
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    /**
+     * @param postalCode
+     * setter for postalCode
+     */
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    /**
+     * @return format of Adress
+     */
+    public String formatAddress() {
+        return "Address: " + country + ", " + address + ", " + city + ", " + state + ", " + postalCode + "\n";
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ javac Address.java
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ java Address
+Error: Main method not found in class Address, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ cat LineItem.java
+/**
+ * LineItem class
+ */
+public class LineItem {
+    private int quantity;
+    private Product item;
+
+    /**
+     * @param quantity
+     * @param item
+     */
+    public LineItem(int quantity, Product item) {
+        this.quantity = quantity;
+        this.item = item;
+    }
+
+    /**
+     * @return total
+     */
+    public double getTotalPrice() {
+        double total = 0;
+        total = item.getPrice() * quantity;
+        return total;
+    }
+
+    /**
+     * @return stock if true or false
+     */
+    public boolean outOfStock() {
+        boolean stock = false;
+        if(quantity > item.getStock()) {
+            quantity = 0;
+            stock = true;
+        }
+        return stock;
+    }
+
+    /**
+     * @return string formatting
+     */
+    public String formatLineItem() {
+            return "Product: " + item.getDescription() + " Price: " + item.getPrice() + " Quantity: " + quantity + " Total Cost: " + getTotalPrice();
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ javac J[KLineItem.java
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ java LineItem
+Error: Main method not found in class LineItem, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ cat Product.java
+/**
+ * Product class
+ */
+public class Product {
+    private String description;
+    private double price;
+    private int stock;
+    private boolean isOutOfStock;
+
+    /**
+     * @param description
+     * @param price
+     */
+    public Product(String description, double price) {
+        this.description = description;
+        this.price = price;
+    }
+
+    /**
+     * @param description
+     * @param price
+     * @param stock
+     */
+    public Product(String description, double price, int stock) {
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
+    }
+
+    /**
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @param description
+     * setter for description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+    /**
+     * @return price
+     */
+    public double getPrice() {
+        return price;
+    }
+
+    /**
+     * @param price
+     * setter for price
+     */
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    /**
+     * @return stock
+     */
+    public int getStock() {
+        return stock;
+    }
+
+    /**
+     * @param stock
+     * setter for stick
+     */
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    /**
+     * @return string for formatting
+     */
+    @Override
+    public String toString() {
+        return "Product{" +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                '}';
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ javac Product.java
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ java Product
+Error: Main method not found in class Product, please define the main method as:
+   public static void main(String[] args)
+or a JavaFX application class must extend javafx.application.Application
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ cat InvoiceTester.java
+import java.util.ArrayList;
+
+/**
+ * Create class invoice tester
+ */
+public class InvoiceTester {
+    /**
+     * @param args main method to test
+     */
+    public static void main(String[] args) {
+        Address a = new Address("Canada", "1690 Lansdowne Ave", "LaSalle", "ON", "N9J3X8");
+        Invoice i = new Invoice(a, new ArrayList<LineItem>());
+
+        i.addLineItem(6, new Product("Banana", 4.25, 10));
+        i.addLineItem(3, new Product("Potatoes", 4.25, 4));
+        i.addLineItem(5, new Product("Pizza", 12.75, 5));
+        i.addLineItem(1, new Product("Coconut", 3.75, 0));
+
+
+        System.out.println(i.formatInvoice());
+    }
+}
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ javac InvoiceTester.java
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ java InvoiceTester
+INVOICE
+----------------------------------------------------------
+Address: Canada, 1690 Lansdowne Ave, LaSalle, ON, N9J3X8
+
+Product: Banana Price: 4.25 Quantity: 6 Total Cost: 25.5
+Product: Potatoes Price: 4.25 Quantity: 3 Total Cost: 12.75
+Product: Pizza Price: 12.75 Quantity: 5 Total Cost: 63.75
+
+----------------------------------------------------------
+Total Cost of Everything: 102.0
+]0;liu61@alpha: ~/fall2020/java/lab9[01;32mliu61@alpha[00m:[01;34m~/fall2020/java/lab9[00m$ ew[Kxio[Kt
+exit
+
+Script done on 2020-11-25 17:44:29-05:00 [COMMAND_EXIT_CODE="0"]
